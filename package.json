@@ -1,27 +1,27 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "electron-gistbox",
+  "version": "0.1.0",
+  "description": "An Electron based enhanced version of the gistbox webappn",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/electron/electron-quick-start.git"
+    "url": "git+https://github.com/butu/electron-gistbox.git"
   },
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial"
+    "gistbox",
+    "snippets",
+    "github"
   ],
-  "author": "GitHub",
+  "author": "Benjamin Butschell",
   "license": "CC0-1.0",
   "bugs": {
-    "url": "https://github.com/electron/electron-quick-start/issues"
+    "url": "https://github.com/butu/electron-gistbox/issues"
   },
-  "homepage": "https://github.com/electron/electron-quick-start#readme",
+  "homepage": "https://github.com/butu/electron-gistbox#readme",
   "devDependencies": {
     "electron": "^1.3.4"
   }
