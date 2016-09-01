@@ -12,3 +12,6 @@ webview {
     overflow:hidden; 
     z-index:999999;
 }
+body {
+    background: #fff;
+}
