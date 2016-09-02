@@ -3,7 +3,6 @@ var remote = require('electron').remote;
 var webview = null;
 const {shell} = require('electron')
 
-
 onload = function () {
     webview = document.querySelector('webview');
      doLayout();
@@ -39,6 +38,12 @@ onload = function () {
 
        }
     })
+    webview.addEventListener('did-stop-loading', function() {
+        webview.executeJavaScript(loadJsFile("webview/notifications"));
+    })
+    
+
+    
 
 };
 function loadGistBoxTheme(themeName = "default") {
