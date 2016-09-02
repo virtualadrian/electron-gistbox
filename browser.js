@@ -1,5 +1,5 @@
 window.onresize = doLayout;
-var remote = require('electron').remote;     
+var remote = require('electron').remote;
 var webview = null;
 const {shell} = require('electron')
 
@@ -7,29 +7,37 @@ const {shell} = require('electron')
 onload = function () {
     webview = document.querySelector('webview');
      doLayout();
-    
+
     //registerShortCuts();
-    
+
     var theme = loadGistBoxTheme("elementary");
-    
+
     webview.addEventListener('dom-ready', function () {
         webview.insertCSS(theme);
-        //webview.openDevTools();
+        webview.openDevTools();
     });
     webview.addEventListener('new-window', (e) => {
-  const protocol = require('url').parse(e.url).protocol
-  if (protocol === 'http:' || protocol === 'https:') {
-    shell.openExternal(e.url)
-  }
-    
-})
+		const protocol = require('url').parse(e.url).protocol
+		if (protocol === 'http:' || protocol === 'https:') {
+		  shell.openExternal(e.url)
+		}
+	 });
 
      require('electron').ipcRenderer.on('shortcut', (event, message) => {
-        if (message == "createGist") {
-            remote.getGlobal('mainWindow').restore()
-            remote.getGlobal('mainWindow').focus()
-            webview.executeJavaScript(loadJsFile("webview/shortcuts/createGist"));
-        }
+		 remote.getGlobal('mainWindow').restore()
+       remote.getGlobal('mainWindow').focus()
+		 webview.focus()
+
+					 switch (message) {
+						 case "createGist":
+							 webview.executeJavaScript(loadJsFile("webview/shortcuts/createGist"));
+							 break;
+						 case "searchGist":
+							 webview.executeJavaScript(loadJsFile("webview/shortcuts/searchGist"));
+					 }
+		 if (message == "createGist") {
+
+       }
     })
 
 };

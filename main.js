@@ -1,7 +1,16 @@
 const electron = require('electron')
 const app = electron.app
+const path = require('path')
 const browserWindow = electron.BrowserWindow
 const globalShortcut = electron.globalShortcut
+const {Menu, Tray} = require('electron')
+
+
+
+let tray = null
+app.on('ready', () => {
+
+})
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -9,10 +18,29 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  global.mainWindow = new browserWindow({width: 1570, height: 940, center: true})
+  global.mainWindow = new browserWindow({width: 1570, height: 940, center: true,icon: __dirname + '/img/tray.png'})
 
   // and load the index.html of the app.
   global.mainWindow.loadURL(`file://${__dirname}/index.html`)
+
+
+
+
+  	let image = electron.nativeImage.createFromPath(path.join(__dirname, 'img', 'tray.png'))
+tray = new Tray( image );
+  const contextMenu = Menu.buildFromTemplate([
+    {label: 'Item1', type: 'radio'},
+    {label: 'Item2', type: 'radio'},
+    {label: 'Item3', type: 'radio', checked: true},
+    {label: 'Item4', type: 'radio'}
+  ])
+  tray.setToolTip('This is my application.')
+  tray.setContextMenu(contextMenu)
+
+
+
+
+
 
   // Open the DevTools.
 //  mainWindow.webContents.openDevTools()
@@ -24,7 +52,7 @@ function createWindow () {
     // when you should delete the corresponding element.
     global.mainWindow = null
   })
- 
+
 }
 
 // This method will be called when Electron has finished
@@ -51,7 +79,16 @@ app.on('activate', function () {
 
 
 function registerShortCuts() {
-    var createGist = globalShortcut.register('alt+n', function(){
+
+	console.log("adsfasfd");
+
+    var createGist = globalShortcut.register('Command+B', function(){
+		  console.log("testddd");
       global.mainWindow.webContents.send('shortcut', 'createGist');
     });
+    var searchGist = globalShortcut.register('Alt+Space', function(){
+		  console.log("testddd");
+      global.mainWindow.webContents.send('shortcut', 'searchGist');
+    });
+	  console.log("teasdadst");
 }
