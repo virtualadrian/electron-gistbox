@@ -1,6 +1,8 @@
 var modalOpened = document.querySelector('.new-gist-modal') !== null
 if (!modalOpened) {
-	document.querySelector('.sidebar-new-gist').click();
+	app.usageHelper.addUsage("gist","click_new_gist")
+	new LibraryNewGistView
+	//document.querySelector('.sidebar-new-gist').click();
 }
 window.setTimeout(function ()
 {
