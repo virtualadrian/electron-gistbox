@@ -82,7 +82,7 @@ function registerShortCuts() {
 
 	console.log("adsfasfd");
 
-    var createGist = globalShortcut.register('Command+B', function(){
+    var createGist = globalShortcut.register('Ctrl+B', function(){
 		  console.log("testddd");
       global.mainWindow.webContents.send('shortcut', 'createGist');
     });

@@ -1,7 +1,8 @@
-var modalOpened = document.querySelector('.new-gist-modal') !== null
-if (!modalOpened) {
-	window.setTimeout(function ()
-{
-	document.querySelector('.header-searchbox .input-search').focus();
-}, 500);
-}
+document.addEventListener('keyup', function(event) {
+
+	console.log(event)
+    if (event.keyCode === 13 && document.querySelector(".gist-file") !== null) {
+       var clipboardText = document.querySelector(".gist-file .copy-gist").getAttribute("data-clipboard-text");
+		 ipc.sendToHost('pong')
+    }
+}, false);

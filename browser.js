@@ -40,10 +40,11 @@ onload = function () {
     })
     webview.addEventListener('did-stop-loading', function() {
         webview.executeJavaScript(loadJsFile("webview/notifications"));
+        webview.executeJavaScript(loadJsFile("webview/shortcuts/copyGist"));
     })
-    
 
-    
+
+
 
 };
 function loadGistBoxTheme(themeName = "default") {
