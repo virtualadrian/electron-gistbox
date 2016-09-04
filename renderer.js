@@ -2,11 +2,13 @@ window.onresize = renderLayout;
 
 var remote = require('electron').remote;
 var ipc = require('electron').ipcRenderer
+var configuration = require('./configuration')
 const {
     clipboard,
     shell
 } = require('electron')
 var webview = null;
+var settings = configuration.readSettings("settings")
 
 // when dom is loaded
 onload = function() {
@@ -15,7 +17,7 @@ onload = function() {
     // get webview
     webview = document.querySelector('webview');
     // load theme
-    var theme = loadTheme("elementary");
+    var theme = loadTheme(settings.theme);
 
     // when dom of webview is loaded
     webview.addEventListener('dom-ready', function() {
@@ -45,28 +47,24 @@ onload = function() {
         }
     }.bind(this));
 
+    //remote.getGlobal('mainWindow').on('focus', function() {
+        //webview.focus()
+    //})
 
-    remote.getGlobal('mainWindow').on('focus', function() {
-        webview.focus()
-    })
-
+    // listen for global shortcuts
     ipc.on('shortcut', (event, message) => {
         remote.getGlobal('mainWindow').restore()
         remote.getGlobal('mainWindow').focus()
-
         switch (message) {
             case "createGist":
                 webview.executeJavaScript(loadJsFile("webview/shortcuts/createGist"));
                 break;
             case "searchGist":
                 webview.executeJavaScript(loadJsFile("webview/shortcuts/searchGist"));
+                webview.focus()
+                break;
         }
     })
-
-
-
-
-
 };
 
 function loadFileContent(path) {
@@ -80,7 +78,11 @@ function loadFileContent(path) {
 }
 
 function loadTheme(themeName = "default") {
-    return loadFileContent("/css/themes/" + themeName + '.css');
+    if (themeName === 'default') {
+        return '';
+    } else {
+        return loadFileContent("/css/themes/" + themeName + '.css');
+    }
 }
 
 function loadJsFile(path) {

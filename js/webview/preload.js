@@ -3,7 +3,7 @@ var ipc = require('electron').ipcRenderer
 // begin binding events, only after gistbox binded its
 document.addEventListener("DOMContentLoaded", function(event) {
     // add event listener for local shortcuts
-    document.addEventListener('keyup', function(event) {
+    document.addEventListener('keydown', function(event) {
         event.preventDefault();
         event.stopPropagation();
         // if enter was pressed, a gist file is visible and no modal is opened
